@@ -3,7 +3,21 @@ import pyautogui
 from fpdf import FPDF
 from io import BytesIO
 from PIL import Image
-import cv2
+import os
+
+# Check if the DISPLAY environment variable is set
+if 'DISPLAY' not in os.environ:
+    # If not, create a virtual display using Xvfb
+    import Xvfb
+    display = Xvfb.Xvfb(width=1024, height=768, colordepth=24)
+    display.start()
+
+# Your pyautogui code here
+# ...
+
+# Stop the virtual display if it was created
+if 'DISPLAY' not in os.environ:
+    display.stop()
 
 # List to store screenshot images
 if "screenshots" not in st.session_state:
